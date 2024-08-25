@@ -52,10 +52,11 @@ func HandleInput(conn net.Conn, buffer []byte) {
 
 		for i, v := range v.Array() {
 			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
-		}
-		if strings.EqualFold(v.String(), "ping") {
-			fmt.Printf("ponging...")
-			PINGResponse(conn)
+
+			if strings.EqualFold(v.String(), "ping") {
+				fmt.Printf("ponging...")
+				PINGResponse(conn)
+			}
 		}
 	}
 }
