@@ -41,7 +41,7 @@ func HandleInput(conn net.Conn) {
 	if err != nil {
 		fmt.Println("failed to read bytes")
 	}
-	fmt.Println("read bytes from client: ", string(buf))
+
 	rd := resp.NewReader(bytes.NewReader(buf))
 	for {
 		v, _, err := rd.ReadValue()
