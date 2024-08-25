@@ -31,17 +31,18 @@ func main() {
 			fmt.Println("Error accepting connection: ", err.Error())
 			continue
 		}
-
-		buf := make([]byte, 128)
-		_, err = con.Read(buf)
-		fmt.Println("read bytes from client: ", string(buf))
-
-		HandleInput(con, buf)
+		go HandleInput(con)
 	}
 }
 
-func HandleInput(conn net.Conn, buffer []byte) {
-	rd := resp.NewReader(bytes.NewReader(buffer))
+func HandleInput(conn net.Conn) {
+	buf := make([]byte, 128)
+	_, err := conn.Read(buf)
+	if err != nil {
+		fmt.Println("failed to read bytes")
+	}
+	fmt.Println("read bytes from client: ", string(buf))
+	rd := resp.NewReader(bytes.NewReader(buf))
 	for {
 		v, _, err := rd.ReadValue()
 		if err == io.EOF {
