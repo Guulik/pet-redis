@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strings"
 	// Uncomment this block to pass the first stage
 	// "net"
 	// "os"
@@ -52,7 +53,7 @@ func HandleInput(conn net.Conn, buffer []byte) {
 		for i, v := range v.Array() {
 			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
 		}
-		if v.String() == "ping" {
+		if strings.EqualFold(v.String(), "ping") {
 			fmt.Printf("ponging...")
 			PINGResponse(conn)
 		}
