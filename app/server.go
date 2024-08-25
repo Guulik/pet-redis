@@ -24,14 +24,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	var con net.Conn
+	con, err := l.Accept()
+
 	for {
-		con, err = l.Accept()
 		if err != nil {
 			fmt.Println("Error accepting connection: ", err.Error())
 			break
 		}
-		defer con.Close()
 
 		buf := make([]byte, 128)
 		_, err = con.Read(buf)
