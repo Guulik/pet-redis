@@ -30,7 +30,7 @@ func main() {
 
 	defer con.Close()
 
-	buf := make([]byte, 1024)
+	buf := make([]byte, 128)
 	_, err = con.Read(buf)
 	fmt.Println("read bytes from client: ", buf)
 
@@ -53,6 +53,7 @@ func HandleInput(conn net.Conn, buffer []byte) {
 			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
 		}
 		if v.String() == "ping" {
+			fmt.Printf("ponging...")
 			PINGResponse(conn)
 		}
 	}
