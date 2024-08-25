@@ -33,7 +33,7 @@ func main() {
 
 	buf := make([]byte, 128)
 	_, err = con.Read(buf)
-	fmt.Println("read bytes from client: ", buf)
+	fmt.Println("read bytes from client: ", string(buf))
 
 	HandleInput(con, buf)
 }
