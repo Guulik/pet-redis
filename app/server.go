@@ -29,7 +29,7 @@ func main() {
 	for {
 		if err != nil {
 			fmt.Println("Error accepting connection: ", err.Error())
-			break
+			continue
 		}
 
 		buf := make([]byte, 128)
