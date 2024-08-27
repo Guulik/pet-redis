@@ -20,9 +20,16 @@ func EncodeSimpleString(s string) (bytes.Buffer, error) {
 }
 
 func EncodeBulkString(s string) (bytes.Buffer, error) {
-	var buf bytes.Buffer
+	var (
+		buf bytes.Buffer
+		err error
+	)
 	wr := resp.NewWriter(&buf)
-	err := wr.WriteString(s)
+	if s != "" {
+		err = wr.WriteString(s)
+	} else {
+		err = wr.WriteNull()
+	}
 
 	if err != nil {
 		fmt.Println("failed to encode string with RESP")
