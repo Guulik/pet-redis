@@ -58,7 +58,7 @@ func HandleInput(conn net.Conn) {
 			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
 
 			if strings.EqualFold(v.String(), "ping") {
-				fmt.Printf("ponging...")
+				fmt.Println("ponging...")
 				PINGResponse(conn)
 			}
 		}
