@@ -1,18 +1,15 @@
 package Commands
 
 import (
-	"bytes"
 	"fmt"
-	"github.com/tidwall/resp"
+	"github.com/codecrafters-io/redis-starter-go/app/RESP"
 	"net"
 )
 
 func ECHO(conn net.Conn, phrase string) {
-	var buf bytes.Buffer
-	wr := resp.NewWriter(&buf)
-	err := wr.WriteSimpleString(phrase)
+	buf, err := RESP.EncodeSimpleString(phrase)
 	if err != nil {
-		fmt.Println("failed to encode phrase with RESP")
+		fmt.Println("failed to encode:", err)
 	}
 
 	_, err = conn.Write(buf.Bytes())

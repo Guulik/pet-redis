@@ -1,19 +1,15 @@
 package Commands
 
 import (
-	"bytes"
 	"fmt"
-	"github.com/tidwall/resp"
+	"github.com/codecrafters-io/redis-starter-go/app/RESP"
 	"net"
 )
 
 func PINGResponse(conn net.Conn) {
-	var buf bytes.Buffer
-	wr := resp.NewWriter(&buf)
-	err := wr.WriteSimpleString("PONG")
-
+	buf, err := RESP.EncodeSimpleString("PONG")
 	if err != nil {
-		fmt.Println("failed to encode PONG with RESP")
+		fmt.Println("failed to encode:", err)
 	}
 
 	_, err = conn.Write(buf.Bytes())

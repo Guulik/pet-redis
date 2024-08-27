@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/codecrafters-io/redis-starter-go/app/InputHandler"
+	"github.com/codecrafters-io/redis-starter-go/app/Storage"
 	"net"
 	"os"
 	// Uncomment this block to pass the first stage
@@ -19,6 +20,8 @@ func main() {
 		fmt.Println("Failed to bind to port 6379")
 		os.Exit(1)
 	}
+
+	Storage.Init()
 
 	for {
 		con, err := l.Accept()

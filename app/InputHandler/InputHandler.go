@@ -44,20 +44,13 @@ func Handle(conn net.Conn) {
 			fmt.Println("echoing...")
 			phrase := v.Array()[1].String()
 			Commands.ECHO(conn, phrase)
+		case "SET":
+			fmt.Println("setting...")
+			key := v.Array()[1].String()
+			value := v.Array()[2].String()
+			Commands.SET(conn, key, value)
 		default:
 			fmt.Printf("Unknown command: %s\n", command)
 		}
-
-		/*for i, v := range v.Array() {
-			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
-			fmt.Println("v string: ", v.String())
-
-			if strings.EqualFold(v.String(), "ping") {
-				fmt.Println("ponging...")
-				Commands.PINGResponse(conn)
-				break
-			}
-
-		}*/
 	}
 }
