@@ -22,7 +22,7 @@ func EncodeSimpleString(s string) (bytes.Buffer, error) {
 func EncodeBulkString(s string) (bytes.Buffer, error) {
 	var buf bytes.Buffer
 	wr := resp.NewWriter(&buf)
-	err := wr.WriteMultiBulk(s)
+	err := wr.WriteString(s)
 
 	if err != nil {
 		fmt.Println("failed to encode string with RESP")
