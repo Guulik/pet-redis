@@ -23,8 +23,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	con, err := l.Accept()
 	for {
-		con, err := l.Accept()
 		if err != nil {
 			fmt.Println("Error accepting connection: ", err.Error())
 			continue
