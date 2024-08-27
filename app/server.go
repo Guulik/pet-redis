@@ -24,8 +24,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	con, err := l.Accept()
 	for {
+		con, err := l.Accept()
 		if err != nil {
 			fmt.Println("Error accepting connection: ", err.Error())
 			continue
@@ -36,6 +36,7 @@ func main() {
 
 func HandleInput(conn net.Conn) {
 	buf := make([]byte, 128)
+	defer conn.Close()
 	for {
 		n, err := conn.Read(buf)
 		if err != nil {
