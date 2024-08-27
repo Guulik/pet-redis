@@ -34,7 +34,12 @@ func Handle(conn net.Conn) {
 			log.Fatal(err)
 		}
 
-		fmt.Println("v array: ", v)
+		fmt.Println("v first: ", v.Array()[0])
+
+		command := strings.ToLower(v.Array()[0].String())
+
+		fmt.Println("command: ", command)
+
 		for i, v := range v.Array() {
 			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
 			fmt.Println("v string: ", v.String())
