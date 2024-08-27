@@ -8,7 +8,6 @@ import (
 	"io"
 	"log"
 	"net"
-	"strings"
 )
 
 func Handle(conn net.Conn) {
@@ -36,11 +35,23 @@ func Handle(conn net.Conn) {
 
 		fmt.Println("v first: ", v.Array()[0])
 
-		command := strings.ToLower(v.Array()[0].String())
+		command := v.Array()[0].String()
 
 		fmt.Println("command: ", command)
 
-		for i, v := range v.Array() {
+		switch command {
+		case "PING":
+			fmt.Println("ponging...")
+			Commands.PINGResponse(conn)
+		case "ECHO":
+			fmt.Println("echoing...")
+			phrase := v.Array()[1].String()
+			Commands.ECHO(conn, phrase)
+		default:
+			fmt.Printf("Unknown command: %s\n", command)
+		}
+
+		/*for i, v := range v.Array() {
 			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
 			fmt.Println("v string: ", v.String())
 
@@ -50,6 +61,6 @@ func Handle(conn net.Conn) {
 				break
 			}
 
-		}
+		}*/
 	}
 }
