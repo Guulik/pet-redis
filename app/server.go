@@ -31,7 +31,7 @@ func main() {
 			fmt.Println("Error accepting connection: ", err.Error())
 			continue
 		}
-		go HandleInput(con)
+		HandleInput(con)
 	}
 }
 
