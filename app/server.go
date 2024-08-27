@@ -36,13 +36,18 @@ func main() {
 
 func HandleInput(conn net.Conn) {
 	buf := make([]byte, 128)
-	n, err := conn.Read(buf)
-	if err != nil {
-		fmt.Println("failed to read bytes")
-	}
 
-	rd := resp.NewReader(bytes.NewReader(buf[:n]))
 	for {
+		n, err := conn.Read(buf)
+		if err != nil {
+			fmt.Println("failed to read bytes")
+		}
+		if n == 0 {
+			fmt.Println("No more data to read.")
+			break
+		}
+
+		rd := resp.NewReader(bytes.NewReader(buf[:n]))
 		v, _, err := rd.ReadValue()
 		fmt.Println("recieved bytes: ", buf, "readerValue: ", v)
 		if err == io.EOF {
