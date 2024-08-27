@@ -15,14 +15,13 @@ func Handle(conn net.Conn) {
 	defer conn.Close()
 	for {
 		n, err := conn.Read(buf)
+		if n == 0 {
+			fmt.Println("No data to read.")
+			break
+		}
 		if err != nil {
 			fmt.Println("failed to read bytes")
 		}
-		if n == 0 {
-			fmt.Println("No more data to read.")
-			break
-		}
-
 		rd := resp.NewReader(bytes.NewReader(buf[:n]))
 		v, _, err := rd.ReadValue()
 		fmt.Println("recieved bytes: ", buf, "readerValue: ", v)
@@ -32,8 +31,6 @@ func Handle(conn net.Conn) {
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		fmt.Println("v first: ", v.Array()[0])
 
 		command := v.Array()[0].String()
 
