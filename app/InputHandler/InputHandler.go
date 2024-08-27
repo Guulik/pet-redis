@@ -33,7 +33,6 @@ func Handle(conn net.Conn) {
 		}
 
 		command := v.Array()[0].String()
-
 		fmt.Println("command: ", command)
 
 		switch command {
