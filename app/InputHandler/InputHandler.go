@@ -36,6 +36,7 @@ func Handle(conn net.Conn) {
 
 		for i, v := range v.Array() {
 			fmt.Printf("  #%d %s, value: '%s'\n", i, v.Type(), v)
+			fmt.Println("v string: ", v.String())
 
 			if strings.EqualFold(v.String(), "ping") {
 				fmt.Println("ponging...")
