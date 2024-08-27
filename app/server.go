@@ -36,7 +36,7 @@ func main() {
 }
 
 func HandleInput(conn net.Conn) {
-	buf := make([]byte, 128)
+	buf := make([]byte, 2)
 	_, err := conn.Read(buf)
 	if err != nil {
 		fmt.Println("failed to read bytes")
