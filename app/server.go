@@ -35,7 +35,7 @@ func main() {
 }
 
 func HandleInput(conn net.Conn) {
-	conn.Close()
+	defer conn.Close()
 	buf := make([]byte, 128)
 	n, err := conn.Read(buf)
 	if err != nil {
