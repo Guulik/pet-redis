@@ -45,7 +45,6 @@ func HandleInput(conn net.Conn) {
 		if n == 0 {
 			fmt.Println("No more data to read.")
 			break
-		}
 
 		rd := resp.NewReader(bytes.NewReader(buf[:n]))
 		v, _, err := rd.ReadValue()
@@ -75,11 +74,11 @@ func PINGResponse(conn net.Conn) {
 	wr := resp.NewWriter(&buf)
 	err := wr.WriteSimpleString("PONG")
 	if err != nil {
-		fmt.Println("error occurred when encoding PONG with RESP")
+		fmt.Println("failed to encode PONG with RESP")
 	}
 
 	_, err = conn.Write(buf.Bytes())
 	if err != nil {
-		fmt.Println("error occurred when writing PONG to client")
+		fmt.Println("failed to write PONG to client")
 	}
 }
