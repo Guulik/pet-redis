@@ -45,7 +45,7 @@ func HandleInput(conn net.Conn) {
 		if n == 0 {
 			fmt.Println("No more data to read.")
 			break
-
+		}
 		rd := resp.NewReader(bytes.NewReader(buf[:n]))
 		v, _, err := rd.ReadValue()
 		fmt.Println("recieved bytes: ", buf, "readerValue: ", v)
