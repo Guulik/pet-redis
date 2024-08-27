@@ -7,7 +7,7 @@ import (
 	"net"
 )
 
-func GET(conn net.Conn, key string, ) {
+func GET(conn net.Conn, key string) {
 	op := " SET "
 
 	storage := Storage.GetInstance()

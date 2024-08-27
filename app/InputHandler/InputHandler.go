@@ -49,6 +49,10 @@ func Handle(conn net.Conn) {
 			key := v.Array()[1].String()
 			value := v.Array()[2].String()
 			Commands.SET(conn, key, value)
+		case "GET":
+			fmt.Println("getting...")
+			key := v.Array()[1].String()
+			Commands.GET(conn, key)
 		default:
 			fmt.Printf("Unknown command: %s\n", command)
 		}
