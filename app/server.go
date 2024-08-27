@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/tidwall/resp"
 	"io"
-	"log"
 	"net"
 	"os"
 	"strings"
@@ -47,9 +46,6 @@ func HandleInput(conn net.Conn) {
 		fmt.Println("recieved bytes: ", buf, "readerValue: ", v)
 		if err == io.EOF {
 			break
-		}
-		if err != nil {
-			log.Fatal(err)
 		}
 		fmt.Printf("Read %s\n", v.Type())
 
