@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/codecrafters-io/redis-starter-go/app/InputHandler"
 	"github.com/codecrafters-io/redis-starter-go/app/Storage"
+	"github.com/codecrafters-io/redis-starter-go/app/api"
 	"net"
 	"os"
 	// Uncomment this block to pass the first stage
@@ -29,6 +29,6 @@ func main() {
 			fmt.Println("Error accepting connection: ", err.Error())
 			continue
 		}
-		go InputHandler.Handle(con)
+		go api.ReadInput(con)
 	}
 }

@@ -1,30 +1,39 @@
 package Commands
 
 import (
-	"fmt"
-	"github.com/codecrafters-io/redis-starter-go/app/RESP"
 	"github.com/codecrafters-io/redis-starter-go/app/Storage"
+	"github.com/codecrafters-io/redis-starter-go/app/api"
 	"net"
+	"time"
 )
 
-func SET(conn net.Conn, key string, value string) {
-	op := " SET "
+type OptionFunc func(*SetArgs)
+
+func WithTTL(ttl time.Duration) OptionFunc {
+	return func(s *SetArgs) {
+		s.ttl = ttl
+	}
+}
+
+type SetArgs struct {
+	key   string
+	value string
+	GET   bool
+	ttl   time.Duration
+}
+
+func SET(conn net.Conn, key string, value string, opts ...OptionFunc) {
+	args := &SetArgs{
+		key:   key,
+		value: value,
+	}
+
+	for _, opt := range opts {
+		opt(args)
+	}
 
 	storage := Storage.GetInstance()
-	if _, exists := storage.Get(key); exists {
-		fmt.Println("op:", op, "The key already exists.")
-	} else {
-		storage.Set(key, value)
-		fmt.Println("op:", op, "Key-Value pair set successfully.")
-	}
+	storage.Set(args.key, args.value)
 
-	buf, err := RESP.EncodeSimpleString("OK")
-	if err != nil {
-		fmt.Println("op:", op, "failed to encode: ", err)
-	}
-
-	_, err = conn.Write(buf.Bytes())
-	if err != nil {
-		fmt.Println("op:", op, "failed to write response to client")
-	}
+	api.OK(conn)
 }
